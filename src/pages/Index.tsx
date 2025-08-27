@@ -1,10 +1,16 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import PhoneMockup from "@/components/PhoneMockup";
 import FeatureCard from "@/components/FeatureCard";
+import GenerateMessageForm from "@/components/GenerateMessageForm";
+import GenerateImageForm from "@/components/GenerateImageForm";
+import GenerateCampaignForm from "@/components/GenerateCampaignForm";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Image, Zap, ArrowRight, Sparkles, Smartphone } from "lucide-react";
 
 const Index = () => {
+  const [activeForm, setActiveForm] = useState<'message' | 'image' | 'campaign' | null>(null);
+
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Header />
@@ -83,6 +89,7 @@ const Index = () => {
             description="Create engaging WhatsApp and RCS promotional messages with AI-powered content optimization."
             buttonText="Generate Message"
             endpoint="POST /api/v1/messages/generate"
+            onClick={() => setActiveForm('message')}
           />
           
           <FeatureCard
@@ -91,6 +98,7 @@ const Index = () => {
             description="Generate stunning marketing visuals and product images tailored to your campaign needs."
             buttonText="Generate Image"
             endpoint="POST /api/v1/images/generate"
+            onClick={() => setActiveForm('image')}
           />
           
           <FeatureCard
@@ -99,6 +107,7 @@ const Index = () => {
             description="Build complete marketing campaigns with coordinated messages, images, and targeting."
             buttonText="Full Campaign"
             endpoint="POST /api/v1/campaigns/create"
+            onClick={() => setActiveForm('campaign')}
           />
         </div>
       </section>
@@ -170,6 +179,19 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Modal Forms */}
+      {activeForm === 'message' && (
+        <GenerateMessageForm onClose={() => setActiveForm(null)} />
+      )}
+      
+      {activeForm === 'image' && (
+        <GenerateImageForm onClose={() => setActiveForm(null)} />
+      )}
+      
+      {activeForm === 'campaign' && (
+        <GenerateCampaignForm onClose={() => setActiveForm(null)} />
+      )}
     </div>
   );
 };

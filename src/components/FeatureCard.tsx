@@ -8,9 +8,10 @@ interface FeatureCardProps {
   description: string;
   buttonText: string;
   endpoint: string;
+  onClick: () => void;
 }
 
-const FeatureCard = ({ icon: Icon, title, description, buttonText, endpoint }: FeatureCardProps) => {
+const FeatureCard = ({ icon: Icon, title, description, buttonText, endpoint, onClick }: FeatureCardProps) => {
   return (
     <Card className="p-8 bg-gradient-card shadow-card hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0">
       <div className="flex flex-col items-center text-center space-y-6">
@@ -27,7 +28,10 @@ const FeatureCard = ({ icon: Icon, title, description, buttonText, endpoint }: F
           <div className="bg-gray-50 rounded-lg p-3 font-mono text-sm text-gray-600 border">
             {endpoint}
           </div>
-          <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity shadow-soft">
+          <Button 
+            onClick={onClick}
+            className="w-full bg-gradient-primary hover:opacity-90 transition-opacity shadow-soft"
+          >
             {buttonText}
           </Button>
         </div>
